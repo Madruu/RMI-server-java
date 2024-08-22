@@ -3,6 +3,8 @@ package org.example.validacao;
 import org.example.modelos.Candidato;
 import org.example.modelos.Usuario;
 import org.example.modelos.Voto;
+import org.example.serverRMI.ServidorDeVoto;
+import org.example.serverRMI.LamportClock;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,7 +16,8 @@ import java.util.List;
 public class VotacaoTrigger extends UnicastRemoteObject implements Votacao, Serializable {
     private List<Candidato> candidatos;
     private List<Voto> votos = new ArrayList<>();
-    private int quantiaMaximaVotos = 1;
+    private int quantiaMaximaVotos = 10;
+    private LamportClock clock;
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -23,9 +26,10 @@ public class VotacaoTrigger extends UnicastRemoteObject implements Votacao, Seri
         super();
     }
 
-    public VotacaoTrigger(List<Candidato> candidatos) throws RemoteException{
+    public VotacaoTrigger(List<Candidato> candidatos, LamportClock clock) throws RemoteException{
         super();
         this.candidatos = candidatos;
+        this.clock = clock;
     }
 
     @Override
@@ -38,6 +42,9 @@ public class VotacaoTrigger extends UnicastRemoteObject implements Votacao, Seri
         if(isUsuario(usuario)){
             Voto voto = new Voto(usuario, candidato);
             votos.add(voto);
+
+            clock.tick();
+            System.out.println("Voto registrado, tempo lógico atualizado: " + clock.getTime());
             return true;
 
         }
