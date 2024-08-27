@@ -2,10 +2,7 @@ package org.example.serverRMI;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import org.example.modelos.Candidato;
 import org.example.validacao.VotacaoTrigger;
@@ -30,10 +27,26 @@ public class ServidorDeVoto {
             //Cria array de candidatos
             candidatos = new ArrayList<Candidato>();
 
-            candidatos.add(new Candidato("Vitor", 2346621));
+            Scanner entrada = new Scanner(System.in);
+            while(true) {
+                System.out.println("Deseja inserir um candidato? (sim/não)");
+                String resposta = entrada.next().toLowerCase();
+                if(!resposta.equals("sim")) {
+                    break;
+                }
+
+                System.out.println("Insira o número do candidato: ");
+                String numeroCandidato = entrada.next();
+                int numero = Integer.parseInt(numeroCandidato);
+                System.out.println("Agora, insira o nome do candidato: ");
+                String nomeCandidato = entrada.next();
+
+                candidatos.add(new Candidato(nomeCandidato, numero));
+            }
+            /*candidatos.add(new Candidato("Vitor", 2346621));
             candidatos.add(new Candidato("Victor", 2346613));
             candidatos.add(new Candidato("Pedro", 2346256));
-            candidatos.add(new Candidato("Maria Fernanda", 2346694));
+            candidatos.add(new Candidato("Maria Fernanda", 2346694));*/
 
             votos = new VotacaoTrigger(candidatos, clock);
 

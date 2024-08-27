@@ -12,12 +12,14 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class VotacaoTrigger extends UnicastRemoteObject implements Votacao, Serializable {
     private List<Candidato> candidatos;
     private List<Voto> votos = new ArrayList<>();
     private int quantiaMaximaVotos = 10;
     private LamportClock clock;
+
 
     @Serial
     private static final long serialVersionUID = 1L;
