@@ -18,10 +18,9 @@ public class ServidorDeVoto {
         Votacao votos;
 
         try{
-            System.setProperty("java.rmi.server.hostname", "192.168.0.102");
+            System.setProperty("java.rmi.server.hostname", "192.168.0.103");
             clock.tick();
             System.out.println("Servidor inicializado. Tempo lógico: "+clock.getTime());
-            //registry = LocateRegistry.createRegistry(3000);
             registry = LocateRegistry.createRegistry(1099);
 
             //Cria array de candidatos
@@ -43,10 +42,6 @@ public class ServidorDeVoto {
 
                 candidatos.add(new Candidato(nomeCandidato, numero));
             }
-            /*candidatos.add(new Candidato("Vitor", 2346621));
-            candidatos.add(new Candidato("Victor", 2346613));
-            candidatos.add(new Candidato("Pedro", 2346256));
-            candidatos.add(new Candidato("Maria Fernanda", 2346694));*/
 
             votos = new VotacaoTrigger(candidatos, clock);
 

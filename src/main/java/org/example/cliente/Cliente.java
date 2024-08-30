@@ -24,7 +24,6 @@ public class Cliente {
         Registry registro;
 
         try{
-            //registro = LocateRegistry.getRegistry(3000);
             registro = LocateRegistry.getRegistry(1099);
 
             votacao = (Votacao) registro.lookup("votar");
@@ -50,18 +49,13 @@ public class Cliente {
                     }
 
                     int voto = -1;
-                    //int quantiaVotos = 0;
-                    //int quantiaVotos = 0;
 
                     System.out.println("Insira o número do candidato: ");
                     String inserirNumVoto = entrada.next();
 
-                    //System.out.println("Agora, insira a quantidade de votos: ");
-                    //String quantidadeDeVotosDoCliente = entrada.next();
 
                     if (isNumber(inserirNumVoto)) {
                         voto = Integer.parseInt(inserirNumVoto);
-                        //quantiaVotos = Integer.parseInt(quantidadeDeVotosDoCliente);
                     } else {
                         System.out.println("Entrada inválida. Por favor, insira um número.");
                         continue;
@@ -75,7 +69,6 @@ public class Cliente {
                             System.out.println("Voto cadastrado com sucesso!\n");
                             System.out.println("Votos apurados: ");
                             System.out.println(votacao.getApuracaoDeVotos());
-                            //break; // Termina o loop após o voto ser registrado
                         }
 
                     } else {
